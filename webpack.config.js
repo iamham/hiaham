@@ -23,7 +23,7 @@ module.exports = {
         }
       ]
     },
-    postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ]
+    postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ],
     plugins: [
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin(),
