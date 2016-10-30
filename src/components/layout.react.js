@@ -14,8 +14,8 @@ const layout = React.createClass({
       { title: 'Blog', link: 'blog' }
     ]
     return (
-      <div>
-        <TopNavation menuItems={menuItems} />
+      <div data-hiaham='layout'>
+        <TopNavation menuItems={menuItems} data-hiaham='topNav' />
         <Helmet
           defaultTitle='hiaHAM | Art, Technology, People'
           meta={[
