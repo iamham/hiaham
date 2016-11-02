@@ -24,12 +24,19 @@ module.exports = {
         },
         {
           test: /\.(svg|png)(\?.*)?$/,
-          exclude: /\.placeholder\.(jpg|png)$/,
           loader: "url-loader?mimetype=image/png"
+        },
+        {
+          test: /\.(jpg)(\?.*)?$/,
+          loader: "url-loader?mimetype=image/jpg"
         },
         {
           test: /\.styl$/,
           loader: 'style-loader!css-loader!stylus-loader'
+        },
+        {
+          test: /\.(eot|woff2|woff|ttf|otf|)(\?.*)?$/,
+          loader: 'url-loader?limit=100000'
         }
       ]
     },

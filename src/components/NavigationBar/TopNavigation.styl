@@ -1,9 +1,16 @@
 .navigation
   position fixed
   width 100%
-  height 55px
-  padding 10px 25px
+  height 70px
+  padding 10px 30px
   box-sizing border-box
+
+  &.\\--bright
+    color #e5e5e5
+    .navigation__logo
+      filter brightness(400%)
+  &.\\--dark
+    color #424242
 
   &__container
     width 100%

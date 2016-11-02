@@ -4,18 +4,34 @@ import React from 'react'
 import TopNavation from './NavigationBar/TopNavigation.react.js'
 
 import './base.styl'
+import './layout.styl'
 
 const layout = React.createClass({
+  propTypes: {
+    children: React.PropTypes.object,
+    location: React.PropTypes.object
+  },
+  getAdditionClass (pathName) {
+    switch (pathName) {
+      case '/about':
+      case 'about':
+        return ' --bright'
+      default: return ' --dark'
+    }
+  },
   render () {
     const menuItems = [
-      { title: 'Home', link: 'home' },
-      { title: 'About Me', link: 'aboutMe' },
+      { title: 'Me', link: 'about' },
       { title: 'Portfolio', link: 'portfolio' },
-      { title: 'Blog', link: 'blog' }
+      { title: 'Medium', link: 'medium' }
     ]
+    const additionClass = this.getAdditionClass(this.props.location.pathname)
     return (
-      <div data-hiaham='layout'>
-        <TopNavation menuItems={menuItems} data-hiaham='topNav' />
+      <div data-hiaham='layout' className='layout'>
+        <TopNavation
+          menuItems={menuItems}
+          additionClass={additionClass}
+        />
         <Helmet
           defaultTitle='hiaHAM | Art, Technology, People'
           meta={[
@@ -33,6 +49,7 @@ const layout = React.createClass({
             {'name': 'twitter:creator', 'content': '@imsarun'}
           ]}
         />
+        {React.cloneElement(this.props.children)}
       </div>
     )
   }
