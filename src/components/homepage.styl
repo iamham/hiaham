@@ -2,3 +2,44 @@
   background url(./images/background-dcip3.jpg) 50% no-repeat
   background-size cover
   height 100%
+
+  &__features
+    position absolute
+    top 50%
+    left 50%
+    margin -65px 0 0 -225px
+    width 450px
+    height 130px
+    text-align center
+    color white
+  &__sliding-features
+    overflow hidden
+    text-align center
+    height 70px
+    width 450px
+    ul
+      margin-top 0
+      list-style none
+      animation-name change
+      animation-duration 10s
+      animation-iteration-count infinite
+      padding 0
+      li
+        line-height 70px
+        margin 0
+        font-size 60px
+        font-weight 600
+
+  @keyframes opacity {
+    0%, 100% {opacity:0;}
+    50% {opacity:1;}
+  }
+
+  @keyframes change {
+    0%, 12%, 100% {transform:translateY(0);}
+    17%,29% {transform:translateY(-25%);}
+    34%,46% {transform:translateY(-50%);}
+    51%,63% {transform:translateY(-75%);}
+    68%,80% {transform:translateY(-50%);}
+    85%,97% {transform:translateY(-25%);}
+  }

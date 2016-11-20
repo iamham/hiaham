@@ -16,7 +16,7 @@ const layout = React.createClass({
       case '/about':
       case 'about':
         return ' --bright'
-      default: return ' --dark'
+      default: return ' --bright'
     }
   },
   render () {

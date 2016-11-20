@@ -11,7 +11,7 @@ const About = React.createClass({
             <div className='about__header'>
               <div className='about__name'>Hi, I’m Sarun Peetasai.</div>
               <p className='about__description'>
-                Art, Technology, People Lovers<br />
+                a pixel perfect developer, passionate in Art, People, Technology<br />
                 Born and live in Bangkok
               </p>
             </div>
