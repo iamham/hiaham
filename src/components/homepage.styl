@@ -1,6 +1,5 @@
 .homepage
-  background url(./images/background-dcip3.jpg) 50% no-repeat
-  background-size cover
+  background white
   height 100%
 
   &__features
@@ -29,6 +28,52 @@
         margin 0
         font-size 60px
         font-weight 600
+
+.cd-background-wrapper
+  background-color white
+  position relative
+  overflow hidden
+  perspective 4000px
+
+.cd-floating-background
+  position relative
+  top 0
+  left 0
+  transform-style preserve-3d
+  transform translateZ(0)
+
+.cd-floating-background.is-absolute
+  position absolute
+
+.cd-floating-background img
+  display block
+  width 100%
+  backface-visibility hidden
+  background-color rgba(255, 255, 255, 0.01)
+
+.cd-floating-background img:not(:first-child)
+  position absolute
+  top 0
+  left 0
+
+.cd-floating-background img:first-child
+  transform translateZ(0px)
+
+.cd-floating-background img:nth-child(2)
+  transform translateZ(100px)
+
+.cd-floating-background img:nth-child(3)
+  transform translateZ(250px)
+
+.cd-floating-background img:nth-child(4)
+  transform translateZ(450px)
+
+.cd-floating-background img:nth-child(5)
+  opacity 0.3
+  transform translateZ(1000px)
+
+.no-preserve-3d .cd-floating-background
+  position relative
 
   @keyframes opacity {
     0%, 100% {opacity:0;}
