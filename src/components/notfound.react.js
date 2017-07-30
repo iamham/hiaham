@@ -1,7 +1,5 @@
 import React from 'react'
 
-import './base.styl'
-
 const NotFound = React.createClass({
   render () {
     return (

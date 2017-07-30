@@ -1,135 +1,105 @@
 import React from 'react'
-import $ from 'jquery'
+import Typed from 'typed.js'
 
-import './homepage.styl'
+import CollapsibleButtonGroup from './CollapsibleButtonGroup/CollapsibleButtonGroup.react'
 
-const homepage = React.createClass({
+import './HomePage.styl'
+
+class homepage extends React.Component {
+  state = {
+    dim: false
+  }
   componentDidMount () {
-    $(document).ready(function($){
-    	let	halfWindowH = $(window).height()*0.5,
-    		halfWindowW = $(window).width()*0.5,
-    		maxRotationY = 5,
-    		maxRotationX = 3,
-    		aspectRatio = 0
-
-    	$('.cd-floating-background').find('img').eq(0).load(function() {
-    		aspectRatio = $(this).width()/$(this).height()
-      		if ( $('html').hasClass('preserve-3d') ) initBackground()
-    	}).each(function() {
-      		if(this.complete) $(this).load()
-    	})
-
-    	$('.cd-background-wrapper').each(function(){
-    		$(this).on('mousemove', function(event){
-    			const wrapperOffsetTop = $(this).offset().top
-    			if( $('html').hasClass('preserve-3d') ) {
-    				window.requestAnimationFrame(function(){
-    					moveBackground(event, wrapperOffsetTop)
-    				})
-    			}
-    		})
-    	})
-
-    	$(window).on('resize', function(){
-    		if( $('html').hasClass('preserve-3d') ) {
-    			window.requestAnimationFrame(function(){
-    				halfWindowH = $(window).height()*0.5,
-    				halfWindowW = $(window).width()*0.5
-    				initBackground()
-    			})
-    		} else {
-    			$('.cd-background-wrapper').attr('style', '')
-    			$('.cd-floating-background').attr('style', '').removeClass('is-absolute')
-    		}
-    	})
-
-    	function initBackground() {
-    		var wrapperHeight = Math.ceil(halfWindowW*2/aspectRatio),
-    			proportions = ( maxRotationY > maxRotationX ) ? 1.1/(Math.sin(Math.PI / 2 - maxRotationY*Math.PI/180)) : 1.1/(Math.sin(Math.PI / 2 - maxRotationX*Math.PI/180)),
-    			newImageWidth = Math.ceil(halfWindowW*2*proportions),
-    			newImageHeight = Math.ceil(newImageWidth/aspectRatio),
-    			newLeft = halfWindowW - newImageWidth/2,
-    			newTop = (wrapperHeight - newImageHeight)/2;
-
-    		$('.cd-background-wrapper').css({
-    			'height' : wrapperHeight,
-    		})
-    		$('.cd-floating-background').addClass('is-absolute').css({
-    			'left' : newLeft,
-    			'top' : newTop,
-    			'width' : newImageWidth,
-    		})
-    	}
-
-    	function moveBackground(event, topOffset) {
-    		var rotateY = ((-event.pageX+halfWindowW)/halfWindowW)*maxRotationY,
-    			yPosition = event.pageY - topOffset,
-    			rotateX = ((yPosition-halfWindowH)/halfWindowH)*maxRotationX;
-
-    		if( rotateY > maxRotationY) rotateY = maxRotationY
-    		if( rotateY < -maxRotationY ) rotateY = -maxRotationY
-    		if( rotateX > maxRotationX) rotateX = maxRotationX
-    		if( rotateX < -maxRotationX ) rotateX = -maxRotationX
-
-    		$('.cd-floating-background').css({
-    			'-moz-transform': 'rotateX(' + rotateX + 'deg' + ') rotateY(' + rotateY + 'deg' + ') translateZ(0)',
-    		    '-webkit-transform': 'rotateX(' + rotateX + 'deg' + ') rotateY(' + rotateY + 'deg' + ') translateZ(0)',
-    			'-ms-transform': 'rotateX(' + rotateX + 'deg' + ') rotateY(' + rotateY + 'deg' + ') translateZ(0)',
-    			'-o-transform': 'rotateX(' + rotateX + 'deg' + ') rotateY(' + rotateY + 'deg' + ') translateZ(0)',
-    			'transform': 'rotateX(' + rotateX + 'deg' + ') rotateY(' + rotateY + 'deg' + ') translateZ(0)',
-    		})
-    	}
+    this.initTypes()
+  }
+  onPassionateMouseOver = (e) => this.setState({ dim: true })
+  onPassionateMouseLeave = (e) => this.setState({ dim: false })
+  onCodeClick = (e) => window.open('https://github.com/iamham', '_blank')
+  onBlogClick = (e) => window.open('https://medium.com/@imSarun', '_blank')
+  onVideoClick = (e) => window.open('https://www.youtube.com/hamgmm', '_blank')
+  onStillClick = (e) => window.open('https://500px.com/speetasai', '_blank')
+  initTypes () {
+    const passionate = new Typed('#passionate', {
+      strings: [' Photography', ' Cinematography', 'People'],
+      typeSpeed: 60,
+      backSpeed: 20,
+      startDelay: 200,
+      loop: true
     })
-
-    (function getPerspective(){
-      var element = document.createElement('p'),
-          html = document.getElementsByTagName('html')[0],
-          body = document.getElementsByTagName('body')[0],
-          propertys = {
-            'webkitTransformStyle':'-webkit-transform-style',
-            'MozTransformStyle':'-moz-transform-style',
-            'msTransformStyle':'-ms-transform-style',
-            'transformStyle':'transform-style'
-          };
-
-        body.insertBefore(element, null)
-
-        for (var i in propertys) {
-            if (element.style[i] !== undefined) {
-                element.style[i] = "preserve-3d"
-            }
-        }
-
-        var st = window.getComputedStyle(element, null),
-            transform = st.getPropertyValue("-webkit-transform-style") ||
-                        st.getPropertyValue("-moz-transform-style") ||
-                        st.getPropertyValue("-ms-transform-style") ||
-                        st.getPropertyValue("transform-style")
-
-        if(transform!=='preserve-3d'){
-          html.className += ' no-preserve-3d'
-        } else {
-        	html.className += ' preserve-3d'
-        }
-        document.body.removeChild(element)
-    })()
-  },
-
+    return passionate
+  }
+  renderButtonGroup = () => {
+    const buttons = [
+      {
+        icon: 'fa fa-medium',
+        onClick: this.onBlogClick
+      }, {
+        icon: 'fa fa-github',
+        iconStyle: {
+          fontSize: 22
+        },
+        onClick: this.onCodeClick
+      }, {
+        icon: 'fa fa-youtube',
+        onHover: this.onVideoHover,
+        onClick: this.onVideoClick
+      }, {
+        icon: 'fa fa-500px',
+        onHover: this.onStillHover,
+        onClick: this.onStillClick
+      }
+    ]
+    return this.state.dim ? null : (
+      <div className='homepage__main-button-group'>
+        <CollapsibleButtonGroup buttons={buttons} collapse />
+      </div>
+    )
+  }
   render () {
+    const homepageClassName = this.state.dim ? 'homepage --dim' : 'homepage'
+    const passionateText = this.state.dim
+      ? 'passionate = An intense desire or enthusiasm for something. - Oxford Dictionaries'
+      : 'passionate'
     return (
-      <div className='homepage' data-hiaham='homepage'>
-        <div class="cd-background-wrapper">
-          <figure class="cd-floating-background">
-            <img src={require('./images/parallax/1.png')}/>
-            <img src={require('./images/parallax/2.png')}/>
-            <img src={require('./images/parallax/3.png')}/>
-            <img src={require('./images/parallax/4.png')}/>
-            <img src={require('./images/parallax/5.jpg')}/>
-          </figure>
+      <div className={homepageClassName} data-hiaham='homepage'>
+        <div className='homepage__first-section'>
+          <div className='homepage__main-content'>
+            <div className='homepage__name'>
+              SARUN PEETASAI
+            </div>
+            <div className='homepage__tag-line'>
+              a pixel perfect <span className='homepage__highlight'>Developer </span>
+              <span className='homepage__expandable'
+                onMouseOver={this.onPassionateMouseOver}
+                onMouseLeave={this.onPassionateMouseLeave}>{passionateText}</span> about
+              <span className='homepage__highlight' id='passionate' /><br />
+              based in Bangkok, Land of Smile
+            </div>
+            {this.renderButtonGroup()}
+          </div>
+          <div className='homepage__first-section-bottom'>
+            <i className="fa fa-hand-o-down" aria-hidden="true"></i> MY PROFILE
+          </div>
+        </div>
+
+        <div className='homepage__second-section'>
+          <div className='homepage__paper-container'>
+            <div className='homepage__paper'>
+              <h1 className='homepage__name-eng'>Sarun Peetasai</h1>
+              <span className='homepage__name-thai'>สรัล ปีตาสัย</span>
+              <h2 className='homepage__paper-header'>Work Experiences</h2>
+              <h3 className='homepgae__job-title'>Full-Stack Developer at Taskworld</h3>
+              <p>November 2015 to present
+		'Taskworld is a web based task management application aimed for better work flow 	between team'
+	Create an amazing new things is my task there at Taskworld, normally I would come up with a new idea then working closely with the team to design and implement it.
+	Javascript (ES6 - NodeJS, ReactJS, Redux), HTML5, CSS3, jQuery
+</p>
+            </div>
+          </div>
         </div>
       </div>
     )
   }
-})
+}
 
 export default homepage

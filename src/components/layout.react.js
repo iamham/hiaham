@@ -1,37 +1,17 @@
 import Helmet from 'react-helmet'
 import React from 'react'
 
-import TopNavation from './NavigationBar/TopNavigation.react.js'
-
 import './base.styl'
 import './layout.styl'
 
-const layout = React.createClass({
-  propTypes: {
+class layout extends React.Component {
+  static propTypes = {
     children: React.PropTypes.object,
     location: React.PropTypes.object
-  },
-  getAdditionClass (pathName) {
-    switch (pathName) {
-      case '/about':
-      case 'about':
-        return ' --bright'
-      default: return ' --bright'
-    }
-  },
+  }
   render () {
-    const menuItems = [
-      { title: 'Me', link: 'about' },
-      { title: 'Portfolio', link: 'portfolio' },
-      { title: 'Medium', link: 'medium' }
-    ]
-    const additionClass = this.getAdditionClass(this.props.location.pathname)
     return (
       <div data-hiaham='layout' className='layout'>
-        <TopNavation
-          menuItems={menuItems}
-          additionClass={additionClass}
-        />
         <Helmet
           defaultTitle='hiaHAM | Art, Technology, People'
           meta={[
@@ -53,6 +33,6 @@ const layout = React.createClass({
       </div>
     )
   }
-})
+}
 
 export default layout

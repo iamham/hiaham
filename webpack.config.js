@@ -13,13 +13,13 @@ module.exports = {
       libraryTarget: 'umd'
     },
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.jsx?$/,
-          loader: 'babel',
+          loader: 'babel-loader',
           exclude: /node_modules/,
           query: {
-            presets: ['es2015', 'react'],
+            presets: ['es2015', 'react', 'stage-0'],
           }
         },
         {
@@ -40,15 +40,16 @@ module.exports = {
         }
       ]
     },
-    stylus: {
-      use: [
-        poststylus([ 'autoprefixer' ])
-      ]
-    },
     plugins: [
       new HtmlWebpackPlugin({template: './src/index.html'}),
-      new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin(),
       new webpack.optimize.OccurrenceOrderPlugin(),
+      new webpack.LoaderOptionsPlugin({
+        options: {
+          stylus: {
+            use: [poststylus([ 'autoprefixer' ])]
+          }
+        }
+      })
     ]
 }
