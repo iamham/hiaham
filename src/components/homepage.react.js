@@ -12,11 +12,17 @@ class homepage extends React.Component {
     dim: false,
     lastName: lastName
   }
-  componentDidMount () {
-    this.initTypes()
+  componentDidMount = () => {
+    this.typed = this.initTypes()
   }
-  onPassionateMouseOver = (e) => this.setState({ dim: true })
-  onPassionateMouseLeave = (e) => this.setState({ dim: false })
+  onPassionateMouseOver = (e) => {
+    this.typed.stop()
+    this.setState({ dim: true })
+  }
+  onPassionateMouseLeave = (e) => {
+    this.typed.start()
+    this.setState({ dim: false })
+  }
 
   onCodeHover = (e) => this.setState({ lastName: 'github' })
   onCodeLeave = (e) => this.resetLastname()
@@ -33,13 +39,14 @@ class homepage extends React.Component {
 
   resetLastname = () => this.setState({ lastName: lastName})
 
-  initTypes () {
-    const passionate = new Typed('#passionate', {
+  initTypes = () => {
+     const passionate = new Typed('#passionate', {
       strings: [' Photography', ' Cinematography', 'People'],
       typeSpeed: 60,
       backSpeed: 20,
       startDelay: 200,
-      loop: true
+      loop: true,
+      shuffle: true,
     })
     return passionate
   }
@@ -76,7 +83,7 @@ class homepage extends React.Component {
       </div>
     )
   }
-  render () {
+  render = () => {
     const lastName = this.state.lastName
     const homepageClassName = this.state.dim ? 'homepage --dim' : 'homepage --' + this.state.lastName
     const passionateText = this.state.dim
