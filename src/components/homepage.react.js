@@ -5,19 +5,34 @@ import CollapsibleButtonGroup from './CollapsibleButtonGroup/CollapsibleButtonGr
 
 import './HomePage.styl'
 
+const lastName = 'Peetasai'
+
 class homepage extends React.Component {
   state = {
-    dim: false
+    dim: false,
+    lastName: lastName
   }
   componentDidMount () {
     this.initTypes()
   }
   onPassionateMouseOver = (e) => this.setState({ dim: true })
   onPassionateMouseLeave = (e) => this.setState({ dim: false })
+
+  onCodeHover = (e) => this.setState({ lastName: 'github' })
+  onCodeLeave = (e) => this.resetLastname()
   onCodeClick = (e) => window.open('https://github.com/iamham', '_blank')
+  onBlogHover = (e) => this.setState({ lastName: 'blog' })
+  onBlogLeave = (e) => this.resetLastname()
   onBlogClick = (e) => window.open('https://medium.com/@imSarun', '_blank')
+  onVideoHover = (e) => this.setState({ lastName: 'video' })
+  onVideoLeave = (e) => this.resetLastname()
   onVideoClick = (e) => window.open('https://www.youtube.com/hamgmm', '_blank')
+  onStillHover = (e) => this.setState({ lastName: 'gallery' })
+  onStillLeave = (e) => this.resetLastname()
   onStillClick = (e) => window.open('https://500px.com/speetasai', '_blank')
+
+  resetLastname = () => this.setState({ lastName: lastName})
+
   initTypes () {
     const passionate = new Typed('#passionate', {
       strings: [' Photography', ' Cinematography', 'People'],
@@ -32,20 +47,26 @@ class homepage extends React.Component {
     const buttons = [
       {
         icon: 'fa fa-medium',
+        onMouseOver: this.onBlogHover,
+        onMouseLeave: this.onBlogLeave,
         onClick: this.onBlogClick
       }, {
         icon: 'fa fa-github',
         iconStyle: {
           fontSize: 22
         },
+        onMouseOver: this.onCodeHover,
+        onMouseLeave: this.onCodeLeave,
         onClick: this.onCodeClick
       }, {
         icon: 'fa fa-youtube',
-        onHover: this.onVideoHover,
+        onMouseOver: this.onVideoHover,
+        onMouseLeave: this.onVideoLeave,
         onClick: this.onVideoClick
       }, {
         icon: 'fa fa-500px',
-        onHover: this.onStillHover,
+        onMouseOver: this.onStillHover,
+        onMouseLeave: this.onStillLeave,
         onClick: this.onStillClick
       }
     ]
@@ -56,44 +77,33 @@ class homepage extends React.Component {
     )
   }
   render () {
-    const homepageClassName = this.state.dim ? 'homepage --dim' : 'homepage'
+    const lastName = this.state.lastName
+    const homepageClassName = this.state.dim ? 'homepage --dim' : 'homepage --' + this.state.lastName
     const passionateText = this.state.dim
       ? 'passionate = An intense desire or enthusiasm for something. - Oxford Dictionaries'
       : 'passionate'
     return (
       <div className={homepageClassName} data-hiaham='homepage'>
+        <div className='homepage__full-background' />
         <div className='homepage__first-section'>
+          {/* <div className='homepage__profile-button'>PROFILE</div> */}
           <div className='homepage__main-content'>
-            <div className='homepage__name'>
-              SARUN PEETASAI
+            <div className='homepage__logo'>
+              <img src={require('./images/hiaham.png')} />
             </div>
-            <div className='homepage__tag-line'>
-              a pixel perfect <span className='homepage__highlight'>Developer </span>
-              <span className='homepage__expandable'
-                onMouseOver={this.onPassionateMouseOver}
-                onMouseLeave={this.onPassionateMouseLeave}>{passionateText}</span> about
-              <span className='homepage__highlight' id='passionate' /><br />
-              based in Bangkok, Land of Smile
-            </div>
-            {this.renderButtonGroup()}
-          </div>
-          <div className='homepage__first-section-bottom'>
-            <i className="fa fa-hand-o-down" aria-hidden="true"></i> MY PROFILE
-          </div>
-        </div>
-
-        <div className='homepage__second-section'>
-          <div className='homepage__paper-container'>
-            <div className='homepage__paper'>
-              <h1 className='homepage__name-eng'>Sarun Peetasai</h1>
-              <span className='homepage__name-thai'>สรัล ปีตาสัย</span>
-              <h2 className='homepage__paper-header'>Work Experiences</h2>
-              <h3 className='homepgae__job-title'>Full-Stack Developer at Taskworld</h3>
-              <p>November 2015 to present
-		'Taskworld is a web based task management application aimed for better work flow 	between team'
-	Create an amazing new things is my task there at Taskworld, normally I would come up with a new idea then working closely with the team to design and implement it.
-	Javascript (ES6 - NodeJS, ReactJS, Redux), HTML5, CSS3, jQuery
-</p>
+            <div className='homepage__text-content'>
+              <div className='homepage__name'>
+                Sarun {lastName}
+              </div>
+              <div className='homepage__tag-line'>
+                a pixel perfect <span className='homepage__highlight'>Developer </span>
+                <span className='homepage__expandable'
+                  onMouseOver={this.onPassionateMouseOver}
+                  onMouseLeave={this.onPassionateMouseLeave}>{passionateText}</span> about
+                <span className='homepage__highlight' id='passionate' /><br />
+                based in Bangkok, Land of Smile
+              </div>
+              {this.renderButtonGroup()}
             </div>
           </div>
         </div>

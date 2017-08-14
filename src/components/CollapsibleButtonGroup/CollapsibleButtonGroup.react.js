@@ -12,7 +12,7 @@ class CollapsibleButtonGroup extends React.Component {
 
     renderButton = (button, index) => {
         return (
-            <div className='collapsible-button-group__button' onClick={button.onClick} key={index}>
+            <div className='collapsible-button-group__button' onClick={button.onClick} onMouseOver={button.onMouseOver} onMouseLeave={button.onMouseLeave} key={index}>
                 <div className='collapsible-button-group__button-container'>
                     <div className='collapsible-button-group__button-icon' style={button.iconStyle}>
                         <i className={button.icon} aria-hidden="true"></i>
