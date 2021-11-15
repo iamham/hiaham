@@ -9,7 +9,7 @@ module.exports = {
     entry: './src/app.js',
     output: {
       filename: 'bundle.js',
-      path: '/Users/hiaham/Documents/hiaham/dist',
+      path: '/Users/sarunpeetasai/Documents/GIT/hiaham/public',
     },
     module: {
       rules: [
